@@ -1,38 +1,16 @@
-import {
-  GoogleLogin,
-  GoogleLoginResponse,
-  GoogleLoginResponseOffline,
-} from 'react-google-login';
-import { useDispatch } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { storeUser } from './store/User/actions';
+import Login from './pages/Login';
+import Calendar from './pages/Calendar';
 
-const App = () => {
-  const dispatch = useDispatch();
-
-  const responseGoogleSuccess = (
-    response: GoogleLoginResponse | GoogleLoginResponseOffline
-  ) => {
-    if (!response.code) dispatch(storeUser(response as GoogleLoginResponse));
-  };
-
-  const responseGoogleError = (error: any) => {
-    console.log(error);
-  };
-
+const App: React.FC = () => {
   return (
-    <GoogleLogin
-      clientId={process.env.REACT_APP_CLIENT_ID || ''}
-      // render={({ onClick, disabled }) => (
-      //   <button onClick={onClick} disabled={disabled}>
-      //     This is my custom Google button
-      //   </button>
-      // )}
-      buttonText="Login With Google"
-      onSuccess={responseGoogleSuccess}
-      onFailure={responseGoogleError}
-      cookiePolicy={'single_host_origin'}
-    />
+    <Router>
+      <Switch>
+        <Route path="/" exact component={Login} />
+        <Route path="/calendar" exact component={Calendar} />
+      </Switch>
+    </Router>
   );
 };
 
