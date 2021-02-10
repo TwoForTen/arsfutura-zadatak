@@ -1,4 +1,8 @@
-import { GoogleLogin } from 'react-google-login';
+import {
+  GoogleLogin,
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+} from 'react-google-login';
 import { useDispatch } from 'react-redux';
 
 import { storeUser } from './store/User/actions';
@@ -6,8 +10,14 @@ import { storeUser } from './store/User/actions';
 const App = () => {
   const dispatch = useDispatch();
 
-  const responseGoogle = (response: any) => {
+  const responseGoogleSuccess = (
+    response: GoogleLoginResponse | GoogleLoginResponseOffline
+  ) => {
     dispatch(storeUser(response));
+  };
+
+  const responseGoogleError = (error: any) => {
+    console.log(error);
   };
 
   return (
@@ -19,8 +29,8 @@ const App = () => {
       //   </button>
       // )}
       buttonText="Login With Google"
-      onSuccess={responseGoogle}
-      onFailure={responseGoogle}
+      onSuccess={responseGoogleSuccess}
+      onFailure={responseGoogleError}
       cookiePolicy={'single_host_origin'}
     />
   );
