@@ -1,0 +1,37 @@
+@import '../../style/global.scss';
+
+.container {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  align-content: center;
+
+  .col {
+    margin: 2rem;
+    max-width: 30rem;
+
+    h1 {
+      color: theme(primary);
+    }
+
+    p {
+      margin: 0.75rem 0 2.25rem 0;
+      color: theme(subtext);
+      font-weight: 300;
+    }
+  }
+
+  .img_container {
+    width: auto;
+    max-height: 18rem;
+    object-fit: contain;
+
+    .img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import App from './App';
+import './style/global.scss';
 
 import reducers from './store';
 
