@@ -32,6 +32,8 @@ $breakpoints: (
   }
 }
 
+$navbar-height: 4rem;
+
 *,
 *::after,
 *::before {
@@ -42,6 +44,8 @@ $breakpoints: (
 
 body {
   font-family: 'Roboto', sans-serif;
+  padding-top: $navbar-height;
+  background-color: #fefefe;
 }
 
 main {

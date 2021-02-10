@@ -6,11 +6,11 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: calc(95vh - #{$navbar-height});
   align-content: center;
 
   .col {
-    margin: 2rem;
+    margin: 1.5rem;
     max-width: 30rem;
 
     h1 {
