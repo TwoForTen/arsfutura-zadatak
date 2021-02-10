@@ -1,3 +1,5 @@
+import { GoogleLoginResponse } from 'react-google-login';
+
 import { UserProfile, TokenObj } from 'src/types';
 
 export enum UserActionTypes {
@@ -11,7 +13,7 @@ export interface UserState {
 
 export interface StoreUserAction {
   type: UserActionTypes.STORE_USER;
-  googleResponse: any;
+  googleResponse: GoogleLoginResponse;
 }
 
 export type UserActions = StoreUserAction;

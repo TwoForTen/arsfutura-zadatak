@@ -13,7 +13,7 @@ const App = () => {
   const responseGoogleSuccess = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => {
-    dispatch(storeUser(response));
+    if (!response.code) dispatch(storeUser(response as GoogleLoginResponse));
   };
 
   const responseGoogleError = (error: any) => {
