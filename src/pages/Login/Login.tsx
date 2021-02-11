@@ -43,6 +43,9 @@ const Login: React.FC = () => {
           onSuccess={responseGoogleSuccess}
           onFailure={responseGoogleError}
           cookiePolicy={'single_host_origin'}
+          scope={
+            'profile email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events'
+          }
         />
       </div>
     </main>

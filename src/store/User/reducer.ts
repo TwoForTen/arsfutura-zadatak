@@ -10,10 +10,10 @@ const initialState: UserState = {
     name: '',
   },
   token: {
-    access_token: '',
+    access_token: localStorage.getItem('@access_token') || '',
     expires_at: undefined,
     expires_in: undefined,
-    id_token: '',
+    id_token: localStorage.getItem('@id_token') || '',
   },
 };
 
