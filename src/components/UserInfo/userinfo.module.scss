@@ -1,0 +1,32 @@
+@import '../../style/global.scss';
+
+.root {
+  padding-top: 1rem;
+
+  .container_info {
+    display: flex;
+    align-items: center;
+
+    .img_container {
+      max-width: 2.75rem;
+      margin-right: 0.75rem;
+
+      img {
+        width: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .img_placeholder {
+        width: 2.75rem;
+        height: 2.75rem;
+        background-color: #efefef;
+        border-radius: 50%;
+      }
+    }
+
+    h3 {
+      font-weight: normal;
+    }
+  }
+}

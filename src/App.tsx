@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Login from './pages/Login/Login';
-import Calendar from './pages/Calendar';
+import Calendar from './pages/Calendar/Calendar';
 import Navbar from './components/Navbar/Navbar';
 import AuthRoute from './components/AuthRoute';
 
