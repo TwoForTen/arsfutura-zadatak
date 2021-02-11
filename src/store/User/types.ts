@@ -4,6 +4,7 @@ import { UserProfile, TokenObj } from 'src/types';
 
 export enum UserActionTypes {
   STORE_USER = 'STORE_USER',
+  LOGOUT = 'LOGOUT',
 }
 
 export interface UserState {
@@ -16,4 +17,8 @@ export interface StoreUserAction {
   googleResponse: GoogleLoginResponse;
 }
 
-export type UserActions = StoreUserAction;
+export interface Logout {
+  type: UserActionTypes.LOGOUT;
+}
+
+export type UserActions = StoreUserAction | Logout;

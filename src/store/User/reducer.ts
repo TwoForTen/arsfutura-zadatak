@@ -29,6 +29,8 @@ const reducer = (state = initialState, action: UserActions): UserState => {
           id_token: action.googleResponse.tokenObj.id_token,
         },
       };
+    case UserActionTypes.LOGOUT:
+      return initialState;
     default:
       return state;
   }

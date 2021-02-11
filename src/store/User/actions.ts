@@ -10,3 +10,11 @@ export const storeUser = (googleResponse: GoogleLoginResponse): UserActions => {
     googleResponse,
   };
 };
+
+export const logout = (): UserActions => {
+  localStorage.removeItem('@access_token');
+  localStorage.removeItem('@id_token');
+  return {
+    type: UserActionTypes.LOGOUT,
+  };
+};

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Calendar from './pages/Calendar';
 import Navbar from './components/Navbar/Navbar';
+import AuthRoute from './components/AuthRoute';
 
 const App: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const App: React.FC = () => {
       <Navbar />
       <Switch>
         <Route path="/" exact component={Login} />
-        <Route path="/calendar" exact component={Calendar} />
+        <AuthRoute path="/calendar" exact component={Calendar} />
       </Switch>
     </Router>
   );

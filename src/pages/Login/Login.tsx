@@ -3,9 +3,11 @@ import {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from 'react-google-login';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { storeUser } from 'src/store/User/actions';
+import { GlobalState } from 'src/store';
 
 import styles from './login.module.scss';
 import loginimg from 'src/assets/loginimg.svg';
@@ -13,15 +15,20 @@ import loginimg from 'src/assets/loginimg.svg';
 const Login: React.FC = () => {
   const dispatch = useDispatch();
 
+  const { id_token } = useSelector((state: GlobalState) => state.user.token);
+
   const responseGoogleSuccess = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => {
+    console.log(response);
     if (!response.code) dispatch(storeUser(response as GoogleLoginResponse));
   };
 
   const responseGoogleError = (error: any) => {
     console.log(error);
   };
+
+  if (id_token) return <Redirect to="/calendar" />;
 
   return (
     <main className={styles.container}>

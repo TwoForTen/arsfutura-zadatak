@@ -10,6 +10,9 @@
   background-color: #fff;
   padding: 1rem 1.5rem;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   .logo_container {
     height: 100%;
@@ -26,7 +29,21 @@
 
     h2 {
       color: theme(primary);
-      font-weight: 500;
+      font-weight: 400;
     }
+  }
+
+  .button_logout {
+    background-color: #fff;
+    padding: 0.25rem 1rem;
+    border-radius: 100px;
+    border: 2px solid theme(primary);
+    cursor: pointer;
+    transition: all 200ms;
+    color: theme(primary);
+  }
+  .button_logout:hover {
+    background-color: theme(primary);
+    color: #fff;
   }
 }
