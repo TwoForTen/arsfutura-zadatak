@@ -53,3 +53,7 @@ main {
   padding: 1rem;
   max-width: 1260px;
 }
+
+button:focus {
+  outline: none;
+}

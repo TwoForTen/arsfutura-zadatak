@@ -21,8 +21,14 @@ const UserInfo = () => {
           />
           {!imageLoaded && <div className={styles.img_placeholder} />}
         </div>
-        <h3>{user.name}</h3>
+        <div>
+          <h3>{user.name}</h3>
+          <small>{user.email}</small>
+        </div>
       </div>
+      <button>
+        <h4>+ Add Event</h4>
+      </button>
     </section>
   );
 };

@@ -2,6 +2,9 @@
 
 .root {
   padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   .container_info {
     display: flex;
@@ -28,5 +31,23 @@
     h3 {
       font-weight: normal;
     }
+
+    small {
+      color: theme(subtext);
+    }
+  }
+
+  button {
+    background-color: theme(primary);
+    padding: 0.5rem 2rem;
+    border-radius: 100px;
+    border: 2px solid theme(primary);
+    cursor: pointer;
+    transition: all 200ms;
+    color: #fff;
+  }
+  button:hover {
+    background-color: transparent;
+    color: theme(primary);
   }
 }
