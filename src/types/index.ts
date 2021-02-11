@@ -13,3 +13,9 @@ export interface TokenObj {
   expires_in: number | undefined;
   id_token: string;
 }
+
+export interface Event {
+  summary: string;
+  start: Date;
+  end: Date;
+}

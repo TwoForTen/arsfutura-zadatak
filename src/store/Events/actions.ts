@@ -3,13 +3,12 @@ import { ThunkAction } from 'redux-thunk';
 import axios from 'src/axiosInstance';
 
 import { GlobalState } from '../';
+import { Event } from 'src/types';
 
-const storeEvents = ({ summary, start, end }: EventsState): EventsActions => {
+const storeEvents = (events: EventsState): EventsActions => {
   return {
     type: EventsActionTypes.STORE_EVENTS,
-    summary,
-    start,
-    end,
+    events,
   };
 };
 
@@ -20,16 +19,26 @@ export const fetchEvents = (
     const { access_token } = getState().user.token;
 
     await axios
-      .get(
-        `/primary/events?timeMin=${new Date().toISOString()}&timeMax=${timeMax}`,
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        }
-      )
+      .get('/primary/events', {
+        params: {
+          timeMin: new Date().toISOString(),
+          timeMax,
+        },
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
       .then(({ data }) => {
-        console.log(data);
+        const events: Event[] = data.items.map(
+          (event: any): Event => {
+            return {
+              summary: event.summary,
+              start: event.start.dateTime,
+              end: event.end.dateTime,
+            };
+          }
+        );
+        dispatch(storeEvents(events));
       });
   };
 };

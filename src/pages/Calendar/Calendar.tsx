@@ -10,7 +10,7 @@ const Calendar: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchEvents(add(new Date(), { days: 7 }).toISOString()));
-  }, []);
+  }, [dispatch]);
 
   return (
     <main>
