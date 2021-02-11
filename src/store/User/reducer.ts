@@ -30,7 +30,14 @@ const reducer = (state = initialState, action: UserActions): UserState => {
         },
       };
     case UserActionTypes.LOGOUT:
-      return initialState;
+      return {
+        ...initialState,
+        token: {
+          ...initialState.token,
+          access_token: '',
+          id_token: '',
+        },
+      };
     default:
       return state;
   }
