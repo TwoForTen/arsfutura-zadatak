@@ -1,28 +1,16 @@
-import {
-  GoogleLogin,
-  GoogleLoginResponse,
-  GoogleLoginResponseOffline,
-} from 'react-google-login';
-import { useDispatch, useSelector } from 'react-redux';
+import { GoogleLogin } from 'react-google-login';
+import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { storeUser } from 'src/store/User/actions';
 import { GlobalState } from 'src/store';
+import useLogin from 'src/hooks/useLogin';
 
 import styles from './login.module.scss';
 import loginimg from 'src/assets/loginimg.svg';
 
 const Login: React.FC = () => {
-  const dispatch = useDispatch();
-
+  const login = useLogin();
   const { id_token } = useSelector((state: GlobalState) => state.user.token);
-
-  const responseGoogleSuccess = (
-    response: GoogleLoginResponse | GoogleLoginResponseOffline
-  ) => {
-    console.log(response);
-    if (!response.code) dispatch(storeUser(response as GoogleLoginResponse));
-  };
 
   const responseGoogleError = (error: any) => {
     console.log(error);
@@ -47,7 +35,7 @@ const Login: React.FC = () => {
         <GoogleLogin
           clientId={process.env.REACT_APP_CLIENT_ID || ''}
           buttonText="Login With Google"
-          onSuccess={responseGoogleSuccess}
+          onSuccess={login}
           onFailure={responseGoogleError}
           cookiePolicy={'single_host_origin'}
           scope={
