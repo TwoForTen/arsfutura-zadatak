@@ -1,0 +1,52 @@
+@import '../../style/global.scss';
+
+.root {
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: #fff;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  width: 100%;
+
+  @include respond-to(sm) {
+    width: 100%;
+  }
+
+  .top_section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    h2 {
+      font-weight: 500;
+      font-size: 1.25rem;
+      margin-right: 0.5rem;
+    }
+
+    button {
+      outline: none;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+    }
+  }
+
+  .bottom_section {
+    display: flex;
+
+    .time_container {
+      display: flex;
+      align-items: center;
+      margin-top: 0.75rem;
+
+      .event_title {
+        margin-left: 0.75rem;
+        display: flex;
+        flex-direction: column;
+
+        span {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
