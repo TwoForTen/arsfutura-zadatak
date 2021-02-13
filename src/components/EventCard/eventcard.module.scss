@@ -27,6 +27,12 @@
       border: none;
       cursor: pointer;
       background: transparent;
+      opacity: 0;
+      transition: opacity 150ms;
+
+      @include respond-to(sm) {
+        opacity: 1 !important;
+      }
     }
   }
 
@@ -49,4 +55,8 @@
       }
     }
   }
+}
+
+.root:hover > .top_section > button {
+  opacity: 1;
 }
