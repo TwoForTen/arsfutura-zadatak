@@ -4,7 +4,12 @@ import styles from './userinfo.module.scss';
 
 import { GlobalState } from 'src/store';
 
-const UserInfo = () => {
+interface UserInfoProps {
+  timeframe: number;
+  setTimeframe: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const UserInfo: React.FC<UserInfoProps> = ({ timeframe, setTimeframe }) => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
   const user = useSelector((state: GlobalState) => state.user.profile);
@@ -26,9 +31,23 @@ const UserInfo = () => {
           <small>{user.email}</small>
         </div>
       </div>
-      <button>
-        <h4>+ Add Event</h4>
-      </button>
+      <div>
+        <label htmlFor="timeframe">Choose timeframe</label>
+        <select
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            setTimeframe(+e.target.value)
+          }
+          value={timeframe}
+          id="timeframe"
+        >
+          <option value={1}>1</option>
+          <option value={7}>7</option>
+          <option value={30}>30</option>
+        </select>
+        <button>
+          <h4>+ Add Event</h4>
+        </button>
+      </div>
     </section>
   );
 };
