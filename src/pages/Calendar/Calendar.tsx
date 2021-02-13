@@ -1,7 +1,7 @@
 import { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UserInfo from 'src/components/UserInfo/UserInfo';
-import { add, format, parse } from 'date-fns';
+import { add, format } from 'date-fns';
 import styles from './calendar.module.scss';
 
 import EventCard from 'src/components/EventCard/EventCard';
@@ -41,14 +41,14 @@ const Calendar: React.FC = () => {
       <section>
         {Object.entries(groupedEvents).map(([date, dateEvents]) => {
           return (
-            <>
+            <Fragment key={date}>
               <GroupTitle>{date}</GroupTitle>
               <div className={styles.events_container}>
                 {dateEvents.map((event) => {
                   return <EventCard key={event.summary} event={event} />;
                 })}
               </div>
-            </>
+            </Fragment>
           );
         })}
       </section>

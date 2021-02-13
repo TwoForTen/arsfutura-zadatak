@@ -12,6 +12,12 @@ const storeEvents = (events: EventsState): EventsActions => {
   };
 };
 
+export const clearEvents = (): EventsActions => {
+  return {
+    type: EventsActionTypes.CLEAR_EVENTS,
+  };
+};
+
 export const fetchEvents = (
   timeMax: string
 ): ThunkAction<void, GlobalState, unknown, EventsActions> => {
