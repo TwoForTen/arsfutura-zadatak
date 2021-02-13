@@ -19,3 +19,7 @@ export interface Event {
   start: Date;
   end: Date;
 }
+
+export interface GroupedEvents {
+  [date: string]: Event[];
+}

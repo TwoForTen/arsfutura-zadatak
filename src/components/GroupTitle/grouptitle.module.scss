@@ -1,0 +1,19 @@
+@import '../../style/global.scss';
+
+.title {
+  margin: 3rem 0 1.5rem 0;
+  position: relative;
+  font-weight: 300;
+  font-size: 1.4rem;
+}
+
+.title::after {
+  content: '';
+  width: 40px;
+  height: 13px;
+  border-radius: 100px;
+  margin-top: 0.25rem;
+  background-color: theme(primary);
+  position: relative;
+  display: block;
+}
