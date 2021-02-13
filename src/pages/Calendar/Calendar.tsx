@@ -54,7 +54,7 @@ const Calendar: React.FC = () => {
               </GroupTitle>
               <div className={styles.events_container}>
                 {dateEvents.map((event) => {
-                  return <EventCard key={event.summary} event={event} />;
+                  return <EventCard key={event.id} event={event} />;
                 })}
               </div>
             </Fragment>

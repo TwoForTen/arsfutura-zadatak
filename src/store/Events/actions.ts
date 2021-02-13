@@ -18,6 +18,13 @@ export const clearEvents = (): EventsActions => {
   };
 };
 
+const deleteEventStore = (id: string): EventsActions => {
+  return {
+    type: EventsActionTypes.DELETE_EVENT,
+    id,
+  };
+};
+
 export const fetchEvents = (
   timeMax: string
 ): ThunkAction<void, GlobalState, unknown, EventsActions> => {
@@ -38,6 +45,7 @@ export const fetchEvents = (
         const events: Event[] = data.items.map(
           (event: any): Event => {
             return {
+              id: event.id,
               summary: event.summary,
               start: event.start.dateTime,
               end: event.end.dateTime,
@@ -46,5 +54,21 @@ export const fetchEvents = (
         );
         dispatch(storeEvents(events));
       });
+  };
+};
+
+export const deleteEvent = (
+  id: string
+): ThunkAction<void, GlobalState, unknown, EventsActions> => {
+  return async (dispatch, getState) => {
+    const { access_token } = getState().user.token;
+
+    await axios
+      .delete(`/primary/events/${id}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+      .then(() => dispatch(deleteEventStore(id)));
   };
 };

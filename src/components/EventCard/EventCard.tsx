@@ -1,5 +1,8 @@
 import styles from './eventcard.module.scss';
 import { format } from 'date-fns';
+import { useDispatch } from 'react-redux';
+
+import { deleteEvent } from 'src/store/Events/actions';
 
 import { Event } from 'src/types';
 import deleteIcon from 'src/assets/delete.svg';
@@ -10,11 +13,16 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
+  const dispatch = useDispatch();
+
   return (
     <div className={styles.root}>
       <div className={styles.top_section}>
         <h2 className={styles.summary}>{event.summary}</h2>
-        <button className={styles.button_delete}>
+        <button
+          className={styles.button_delete}
+          onClick={() => dispatch(deleteEvent(event.id))}
+        >
           <img src={deleteIcon} alt="delete" />
         </button>
       </div>

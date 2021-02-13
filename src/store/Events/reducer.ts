@@ -8,6 +8,8 @@ const reducer = (state = initialState, action: EventsActions): EventsState => {
       return action.events;
     case EventsActionTypes.CLEAR_EVENTS:
       return [];
+    case EventsActionTypes.DELETE_EVENT:
+      return state.filter((event) => event.id !== action.id);
     default:
       return state;
   }

@@ -15,6 +15,7 @@ export interface TokenObj {
 }
 
 export interface Event {
+  id: string;
   summary: string;
   start: Date;
   end: Date;
