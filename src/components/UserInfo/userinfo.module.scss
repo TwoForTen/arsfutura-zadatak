@@ -7,9 +7,17 @@
   justify-content: space-between;
   margin-bottom: 3rem;
 
+  @include respond-to(sm) {
+    flex-direction: column;
+  }
+
   .container_info {
     display: flex;
     align-items: center;
+
+    @include respond-to(sm) {
+      width: 100%;
+    }
 
     .img_container {
       max-width: 2.75rem;
@@ -38,17 +46,52 @@
     }
   }
 
-  button {
-    background-color: theme(primary);
-    padding: 0.5rem 2rem;
-    border-radius: 100px;
-    border: 2px solid theme(primary);
-    cursor: pointer;
-    transition: all 200ms;
-    color: #fff;
-  }
-  button:hover {
-    background-color: transparent;
-    color: theme(primary);
+  .actions {
+    display: flex;
+    align-items: center;
+
+    @include respond-to(sm) {
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    .timeframe_select_container {
+      display: flex;
+      flex-direction: column;
+
+      select {
+        padding: 0.5rem;
+        border-color: theme(primary);
+        border-width: 2px;
+        border-radius: 100px;
+        margin-right: 0.5rem;
+
+        @include respond-to(sm) {
+          flex: 1;
+        }
+      }
+
+      select:focus {
+        outline: none;
+      }
+    }
+
+    button {
+      background-color: theme(primary);
+      padding: 0.5rem 2rem;
+      border-radius: 100px;
+      border: 2px solid theme(primary);
+      cursor: pointer;
+      transition: all 200ms;
+      color: #fff;
+
+      @include respond-to(sm) {
+        flex: 1;
+      }
+    }
+    button:hover {
+      background-color: transparent;
+      color: theme(primary);
+    }
   }
 }

@@ -31,19 +31,20 @@ const UserInfo: React.FC<UserInfoProps> = ({ timeframe, setTimeframe }) => {
           <small>{user.email}</small>
         </div>
       </div>
-      <div>
-        <label htmlFor="timeframe">Choose timeframe</label>
-        <select
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            setTimeframe(+e.target.value)
-          }
-          value={timeframe}
-          id="timeframe"
-        >
-          <option value={1}>1</option>
-          <option value={7}>7</option>
-          <option value={30}>30</option>
-        </select>
+      <div className={styles.actions}>
+        <div className={styles.timeframe_select_container}>
+          <select
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setTimeframe(+e.target.value)
+            }
+            value={timeframe}
+            id="timeframe"
+          >
+            <option value={1}>Show 1 day</option>
+            <option value={7}>Show 7 days</option>
+            <option value={30}>Show 30 days</option>
+          </select>
+        </div>
         <button>
           <h4>+ Add Event</h4>
         </button>
