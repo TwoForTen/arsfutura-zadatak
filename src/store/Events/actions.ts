@@ -36,6 +36,7 @@ export const fetchEvents = (
 ): ThunkAction<void, GlobalState, unknown, EventsActions> => {
   return async (dispatch, getState) => {
     const { access_token } = getState().user.token;
+    dispatch(clearEvents());
     dispatch(setLoading());
     await axios
       .get('/primary/events', {

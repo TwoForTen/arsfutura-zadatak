@@ -9,6 +9,7 @@ import { GlobalState } from 'src/store';
 
 import { Event } from 'src/types';
 import time from 'src/assets/time.svg';
+import eventIcon from 'src/assets/event_icon.svg';
 
 interface EventCardProps {
   event: Event;
@@ -60,6 +61,13 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         </button>
       </div>
       <div className={styles.bottom_section}>
+        <div className={`${styles.time_container} ${styles.date_container}`}>
+          <img src={eventIcon} alt="event" />
+          <div className={styles.event_title}>
+            <small>Date</small>
+            <span>{format(new Date(event.start), 'dd/LL')}</span>
+          </div>
+        </div>
         <div className={styles.time_container}>
           <img src={time} alt="time" />
           <div className={styles.event_title}>

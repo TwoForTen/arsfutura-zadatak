@@ -47,6 +47,10 @@
   .bottom_section {
     display: flex;
 
+    .date_container {
+      margin-right: 2.5rem;
+    }
+
     .time_container {
       display: flex;
       align-items: center;

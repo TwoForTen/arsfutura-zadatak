@@ -21,6 +21,7 @@ const Calendar: React.FC = () => {
   const [timeframe, setTimeframe] = useState<number>(7);
 
   useEffect(() => {
+    setGroupedEvents({});
     dispatch(fetchEvents(add(new Date(), { days: timeframe }).toISOString()));
   }, [dispatch, timeframe]);
 
@@ -52,7 +53,7 @@ const Calendar: React.FC = () => {
     setGroupedEvents(stateUpdate);
   }, [events, timeframe]);
 
-  if (Object.keys(groupedEvents).length < 1 && events.loading) {
+  if (events.loading) {
     return (
       <CalendarMain timeframe={timeframe} setTimeframe={setTimeframe}>
         <div className={styles.events_status_container}>
@@ -62,7 +63,7 @@ const Calendar: React.FC = () => {
     );
   }
 
-  if (Object.keys(groupedEvents).length < 1 && !events.loading) {
+  if (events.events.length < 1 && !events.loading) {
     return (
       <CalendarMain timeframe={timeframe} setTimeframe={setTimeframe}>
         <div className={styles.events_status_container}>

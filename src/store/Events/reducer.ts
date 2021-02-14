@@ -16,8 +16,8 @@ const reducer = (state = initialState, action: EventsActions): EventsState => {
       return initialState;
     case EventsActionTypes.DELETE_EVENT:
       return {
+        ...state,
         events: state.events.filter((event) => event.id !== action.id),
-        loading: false,
       };
     case EventsActionTypes.SET_LOADING: {
       return {
