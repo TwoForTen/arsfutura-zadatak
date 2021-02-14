@@ -1,11 +1,11 @@
 import styles from './eventcard.module.scss';
 import { format } from 'date-fns';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { deleteEvent } from 'src/store/Events/actions';
+import { GlobalState } from 'src/store';
 
 import { Event } from 'src/types';
-import deleteIcon from 'src/assets/delete.svg';
 import time from 'src/assets/time.svg';
 
 interface EventCardProps {
@@ -15,15 +15,29 @@ interface EventCardProps {
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const dispatch = useDispatch();
 
+  const { loading } = useSelector((state: GlobalState) => state.events);
+
   return (
     <div className={styles.root}>
       <div className={styles.top_section}>
         <h2 className={styles.summary}>{event.summary}</h2>
         <button
           className={styles.button_delete}
+          disabled={loading}
           onClick={() => dispatch(deleteEvent(event.id))}
         >
-          <img src={deleteIcon} alt="delete" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="red"
+              d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+            />
+          </svg>
         </button>
       </div>
       <div className={styles.bottom_section}>

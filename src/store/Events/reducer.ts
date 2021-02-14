@@ -9,15 +9,15 @@ const reducer = (state = initialState, action: EventsActions): EventsState => {
   switch (action.type) {
     case EventsActionTypes.STORE_EVENTS:
       return {
-        loading: false,
         events: action.events,
+        loading: false,
       };
     case EventsActionTypes.CLEAR_EVENTS:
       return initialState;
     case EventsActionTypes.DELETE_EVENT:
       return {
-        ...state,
         events: state.events.filter((event) => event.id !== action.id),
+        loading: false,
       };
     case EventsActionTypes.SET_LOADING: {
       return {

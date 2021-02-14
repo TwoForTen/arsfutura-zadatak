@@ -68,6 +68,7 @@ export const deleteEvent = (
 ): ThunkAction<void, GlobalState, unknown, EventsActions> => {
   return async (dispatch, getState) => {
     const { access_token } = getState().user.token;
+    dispatch(setLoading());
 
     await axios
       .delete(`/primary/events/${id}`, {
