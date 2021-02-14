@@ -19,6 +19,11 @@ const reducer = (state = initialState, action: EventsActions): EventsState => {
         ...state,
         events: state.events.filter((event) => event.id !== action.id),
       };
+    case EventsActionTypes.INSERT_EVENT:
+      return {
+        ...state,
+        events: [...state.events, action.event],
+      };
     case EventsActionTypes.SET_LOADING: {
       return {
         ...state,

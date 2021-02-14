@@ -25,6 +25,13 @@ export const deleteEvent = (id: string): EventsActions => {
   };
 };
 
+export const insertEvent = (event: Event): EventsActions => {
+  return {
+    type: EventsActionTypes.INSERT_EVENT,
+    event,
+  };
+};
+
 const setLoading = (): EventsActions => {
   return {
     type: EventsActionTypes.SET_LOADING,
@@ -34,11 +41,11 @@ const setLoading = (): EventsActions => {
 export const fetchEvents = (
   timeMax: string
 ): ThunkAction<void, GlobalState, unknown, EventsActions> => {
-  return async (dispatch, getState) => {
+  return (dispatch, getState) => {
     const { access_token } = getState().user.token;
     dispatch(clearEvents());
     dispatch(setLoading());
-    await axios
+    axios
       .get('/primary/events', {
         params: {
           timeMin: new Date().toISOString(),
