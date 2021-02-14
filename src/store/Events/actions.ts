@@ -1,11 +1,11 @@
-import { EventsActions, EventsState, EventsActionTypes } from './types';
+import { EventsActions, EventsActionTypes } from './types';
 import { ThunkAction } from 'redux-thunk';
 import axios from 'src/axiosInstance';
 
 import { GlobalState } from '../';
 import { Event } from 'src/types';
 
-const storeEvents = (events: EventsState): EventsActions => {
+const storeEvents = (events: Event[]): EventsActions => {
   return {
     type: EventsActionTypes.STORE_EVENTS,
     events,
@@ -25,12 +25,18 @@ const deleteEventStore = (id: string): EventsActions => {
   };
 };
 
+const setLoading = (): EventsActions => {
+  return {
+    type: EventsActionTypes.SET_LOADING,
+  };
+};
+
 export const fetchEvents = (
   timeMax: string
 ): ThunkAction<void, GlobalState, unknown, EventsActions> => {
   return async (dispatch, getState) => {
     const { access_token } = getState().user.token;
-
+    dispatch(setLoading());
     await axios
       .get('/primary/events', {
         params: {

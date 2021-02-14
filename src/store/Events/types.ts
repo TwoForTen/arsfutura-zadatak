@@ -4,13 +4,17 @@ export enum EventsActionTypes {
   STORE_EVENTS = 'STORE_EVENTS',
   CLEAR_EVENTS = 'CLEAR_EVENTS',
   DELETE_EVENT = 'DELETE_EVENT',
+  SET_LOADING = 'SET_LOADING',
 }
 
-export type EventsState = Event[];
+export interface EventsState {
+  events: Event[];
+  loading: boolean;
+}
 
 interface StoreEvents {
   type: EventsActionTypes.STORE_EVENTS;
-  events: EventsState;
+  events: Event[];
 }
 
 interface ClearEvents {
@@ -22,4 +26,12 @@ interface DeleteEvent {
   id: string;
 }
 
-export type EventsActions = StoreEvents | ClearEvents | DeleteEvent;
+interface SetLoading {
+  type: EventsActionTypes.SET_LOADING;
+}
+
+export type EventsActions =
+  | StoreEvents
+  | ClearEvents
+  | DeleteEvent
+  | SetLoading;

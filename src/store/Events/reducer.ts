@@ -1,15 +1,30 @@
 import { EventsState, EventsActions, EventsActionTypes } from './types';
 
-const initialState: EventsState = [];
+const initialState: EventsState = {
+  events: [],
+  loading: false,
+};
 
 const reducer = (state = initialState, action: EventsActions): EventsState => {
   switch (action.type) {
     case EventsActionTypes.STORE_EVENTS:
-      return action.events;
+      return {
+        loading: false,
+        events: action.events,
+      };
     case EventsActionTypes.CLEAR_EVENTS:
-      return [];
+      return initialState;
     case EventsActionTypes.DELETE_EVENT:
-      return state.filter((event) => event.id !== action.id);
+      return {
+        ...state,
+        events: state.events.filter((event) => event.id !== action.id),
+      };
+    case EventsActionTypes.SET_LOADING: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
     default:
       return state;
   }

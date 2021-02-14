@@ -1,7 +1,17 @@
+@import '../../style/global.scss';
+
 .root {
   .events_container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     grid-gap: 1rem;
+  }
+
+  .events_status_container {
+    text-align: center;
+
+    span {
+      color: theme(subtext);
+    }
   }
 }
