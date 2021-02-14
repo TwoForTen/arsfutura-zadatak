@@ -2,10 +2,12 @@
 
 .root {
   padding: 2rem;
-  border-radius: 1rem;
+  border-radius: 0.25rem;
   background-color: #fff;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
   width: 100%;
+  border-left: 3px solid theme(subtext);
+  transition: 150ms;
 
   @include respond-to(sm) {
     width: 100%;
@@ -17,7 +19,7 @@
     justify-content: space-between;
 
     h2 {
-      font-weight: 500;
+      font-weight: 400;
       font-size: 1.25rem;
       margin-right: 0.5rem;
     }
@@ -60,13 +62,23 @@
         margin-left: 0.75rem;
         display: flex;
         flex-direction: column;
+        align-items: center;
+
+        small {
+          font-weight: 300;
+          color: theme(subtext);
+        }
 
         span {
-          font-weight: 500;
+          font-weight: 400;
         }
       }
     }
   }
+}
+
+.root:hover {
+  border-left-color: theme(primary);
 }
 
 .root:hover > .top_section > button {
