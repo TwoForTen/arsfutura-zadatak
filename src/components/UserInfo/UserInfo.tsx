@@ -7,9 +7,14 @@ import { GlobalState } from 'src/store';
 interface UserInfoProps {
   timeframe: number;
   setTimeframe: React.Dispatch<React.SetStateAction<number>>;
+  setModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const UserInfo: React.FC<UserInfoProps> = ({ timeframe, setTimeframe }) => {
+const UserInfo: React.FC<UserInfoProps> = ({
+  timeframe,
+  setTimeframe,
+  setModalOpened,
+}) => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
   const user = useSelector((state: GlobalState) => state.user.profile);
@@ -45,7 +50,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ timeframe, setTimeframe }) => {
             <option value={30}>Show 30 days</option>
           </select>
         </div>
-        <button>
+        <button onClick={() => setModalOpened(true)}>
           <h4>+ Add Event</h4>
         </button>
       </div>

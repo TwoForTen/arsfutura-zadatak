@@ -5,7 +5,11 @@ import styles from './addeventmodal.module.scss';
 
 import close from 'src/assets/close.svg';
 
-const AddEventModal = () => {
+interface AddEventModalProps {
+  setModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AddEventModal: React.FC<AddEventModalProps> = ({ setModalOpened }) => {
   const [startTime, setStartTime] = useState<any>(new Date());
   const [endTime, setEndTime] = useState<any>(new Date());
 
@@ -18,10 +22,15 @@ const AddEventModal = () => {
   }, []);
 
   const modal = (
-    <div className={styles.backdrop}>
-      <div className={styles.root}>
+    <div className={styles.backdrop} onClick={() => setModalOpened(false)}>
+      <div
+        className={styles.root}
+        onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+          e.stopPropagation()
+        }
+      >
         <div className={styles.top_title}>
-          <button>
+          <button onClick={() => setModalOpened(false)}>
             <img src={close} alt="close" />
           </button>
           <h2>Add New Event</h2>

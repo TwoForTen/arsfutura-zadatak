@@ -20,6 +20,7 @@ const Calendar: React.FC = () => {
   const events = useSelector((state: GlobalState) => state.events);
   const [groupedEvents, setGroupedEvents] = useState<GroupedEvents>({});
   const [timeframe, setTimeframe] = useState<number>(7);
+  const [modalOpened, setModalOpened] = useState<boolean>(false);
 
   useEffect(() => {
     setGroupedEvents({});
@@ -54,62 +55,49 @@ const Calendar: React.FC = () => {
     setGroupedEvents(stateUpdate);
   }, [events, timeframe]);
 
-  if (events.loading) {
-    return (
-      <CalendarMain timeframe={timeframe} setTimeframe={setTimeframe}>
-        <div className={styles.events_status_container}>
-          <span>Fetching events...</span>
-        </div>
-      </CalendarMain>
-    );
-  }
-
-  if (events.events.length < 1 && !events.loading) {
-    return (
-      <CalendarMain timeframe={timeframe} setTimeframe={setTimeframe}>
-        <div className={styles.events_status_container}>
-          <span>No events found</span>
-        </div>
-      </CalendarMain>
-    );
-  }
+  const EVENTS_FETCHING: JSX.Element = (
+    <div className={styles.events_status_container}>
+      <span>Fetching events...</span>
+    </div>
+  );
+  const EVENTS_NOT_FOUND: JSX.Element = (
+    <div className={styles.events_status_container}>
+      <span>No events found</span>
+    </div>
+  );
+  const EVENT_LIST: JSX.Element[] = Object.entries(groupedEvents).map(
+    ([date, dateEvents]) => {
+      return (
+        <Fragment key={date}>
+          <GroupTitle>{date}</GroupTitle>
+          <div className={styles.events_container}>
+            {dateEvents.map((event) => {
+              return <EventCard key={event.id} event={event} />;
+            })}
+          </div>
+        </Fragment>
+      );
+    }
+  );
 
   return (
     <>
-      <AddEventModal />
-      <CalendarMain timeframe={timeframe} setTimeframe={setTimeframe}>
-        {Object.entries(groupedEvents).map(([date, dateEvents]) => {
-          return (
-            <Fragment key={date}>
-              <GroupTitle>{date}</GroupTitle>
-              <div className={styles.events_container}>
-                {dateEvents.map((event) => {
-                  return <EventCard key={event.id} event={event} />;
-                })}
-              </div>
-            </Fragment>
-          );
-        })}
-      </CalendarMain>
+      {modalOpened && <AddEventModal setModalOpened={setModalOpened} />}
+      <main className={styles.root}>
+        <UserInfo
+          timeframe={timeframe}
+          setTimeframe={setTimeframe}
+          setModalOpened={setModalOpened}
+        />
+        <section>
+          {events.loading
+            ? EVENTS_FETCHING
+            : events.events.length < 1 && !events.loading
+            ? EVENTS_NOT_FOUND
+            : EVENT_LIST}
+        </section>
+      </main>
     </>
-  );
-};
-
-interface CalendarMainProps {
-  timeframe: number;
-  setTimeframe: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const CalendarMain: React.FC<CalendarMainProps> = ({
-  children,
-  timeframe,
-  setTimeframe,
-}) => {
-  return (
-    <main className={styles.root}>
-      <UserInfo timeframe={timeframe} setTimeframe={setTimeframe} />
-      <section>{children}</section>
-    </main>
   );
 };
 
