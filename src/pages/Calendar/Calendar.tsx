@@ -17,7 +17,7 @@ const DATE_FORMAT_WEEKS: string = 'wo';
 const Calendar: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { events, loading } = useSelector((state: GlobalState) => state.events);
+  const events = useSelector((state: GlobalState) => state.events);
   const [groupedEvents, setGroupedEvents] = useState<GroupedEvents>({});
   const [timeframe, setTimeframe] = useState<number>(7);
   const [dateFormat, setDateFormat] = useState<string>(DATE_FORMAT_DAYS);
@@ -33,7 +33,7 @@ const Calendar: React.FC = () => {
     setGroupedEvents({});
     let stateUpdate: GroupedEvents = {};
 
-    [...events]
+    [...events.events]
       .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
       .forEach((event: Event): void => {
         const eventDate = format(new Date(event.start), dateFormat);
@@ -48,7 +48,7 @@ const Calendar: React.FC = () => {
     setGroupedEvents(stateUpdate);
   }, [events, dateFormat]);
 
-  if (Object.keys(groupedEvents).length < 1 && loading) {
+  if (Object.keys(groupedEvents).length < 1 && events.loading) {
     return (
       <CalendarMain timeframe={timeframe} setTimeframe={setTimeframe}>
         <div className={styles.events_status_container}>
@@ -58,7 +58,7 @@ const Calendar: React.FC = () => {
     );
   }
 
-  if (Object.keys(groupedEvents).length < 1 && !loading) {
+  if (Object.keys(groupedEvents).length < 1 && !events.loading) {
     return (
       <CalendarMain timeframe={timeframe} setTimeframe={setTimeframe}>
         <div className={styles.events_status_container}>

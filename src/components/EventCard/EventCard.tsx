@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import styles from './eventcard.module.scss';
 import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'src/axiosInstance';
 
 import { deleteEvent } from 'src/store/Events/actions';
 import { GlobalState } from 'src/store';
@@ -15,7 +17,24 @@ interface EventCardProps {
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const dispatch = useDispatch();
 
-  const { loading } = useSelector((state: GlobalState) => state.events);
+  const [loading, setLoading] = useState<boolean>(false);
+  const access_token = useSelector(
+    (state: GlobalState) => state.user.token.access_token
+  );
+
+  const deleteEventFunc = async () => {
+    setLoading(true);
+    await axios
+      .delete(`/primary/events/${event.id}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+      .then(() => {
+        dispatch(deleteEvent(event.id));
+        setLoading(false);
+      });
+  };
 
   return (
     <div className={styles.root}>
@@ -24,7 +43,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         <button
           className={styles.button_delete}
           disabled={loading}
-          onClick={() => dispatch(deleteEvent(event.id))}
+          onClick={deleteEventFunc}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
