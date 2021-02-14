@@ -6,6 +6,7 @@ import styles from './calendar.module.scss';
 
 import EventCard from 'src/components/EventCard/EventCard';
 import GroupTitle from 'src/components/GroupTitle/GroupTitle';
+import AddEventModal from 'src/components/AddEventModal/AddEventModal';
 
 import { fetchEvents } from 'src/store/Events/actions';
 import { GlobalState } from 'src/store';
@@ -74,20 +75,23 @@ const Calendar: React.FC = () => {
   }
 
   return (
-    <CalendarMain timeframe={timeframe} setTimeframe={setTimeframe}>
-      {Object.entries(groupedEvents).map(([date, dateEvents]) => {
-        return (
-          <Fragment key={date}>
-            <GroupTitle>{date}</GroupTitle>
-            <div className={styles.events_container}>
-              {dateEvents.map((event) => {
-                return <EventCard key={event.id} event={event} />;
-              })}
-            </div>
-          </Fragment>
-        );
-      })}
-    </CalendarMain>
+    <>
+      <AddEventModal />
+      <CalendarMain timeframe={timeframe} setTimeframe={setTimeframe}>
+        {Object.entries(groupedEvents).map(([date, dateEvents]) => {
+          return (
+            <Fragment key={date}>
+              <GroupTitle>{date}</GroupTitle>
+              <div className={styles.events_container}>
+                {dateEvents.map((event) => {
+                  return <EventCard key={event.id} event={event} />;
+                })}
+              </div>
+            </Fragment>
+          );
+        })}
+      </CalendarMain>
+    </>
   );
 };
 
