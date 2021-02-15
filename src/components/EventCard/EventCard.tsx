@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import styles from './eventcard.module.scss';
 import { format } from 'date-fns';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import axios from 'src/axiosInstance';
 
 import { deleteEvent } from 'src/store/Events/actions';
-import { GlobalState } from 'src/store';
 
 import { Event } from 'src/types';
 import time from 'src/assets/time.svg';
@@ -19,22 +18,13 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState<boolean>(false);
-  const access_token = useSelector(
-    (state: GlobalState) => state.user.token.access_token
-  );
 
   const deleteEventFunc = async () => {
     setLoading(true);
-    await axios
-      .delete(`/primary/events/${event.id}`, {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      })
-      .then(() => {
-        dispatch(deleteEvent(event.id));
-        setLoading(false);
-      });
+    await axios.delete(`/primary/events/${event.id}`).then(() => {
+      dispatch(deleteEvent(event.id));
+      setLoading(false);
+    });
   };
 
   return (
