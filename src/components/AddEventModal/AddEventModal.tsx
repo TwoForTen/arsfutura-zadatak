@@ -44,6 +44,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
     }
 
     setLoading(true);
+    setError('');
     axios
       .post(
         '/primary/events',
@@ -81,6 +82,10 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
         setModalOpened(false);
         setLoading(false);
         setError('');
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError('Something went wrong');
       });
   };
 

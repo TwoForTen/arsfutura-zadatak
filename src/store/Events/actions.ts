@@ -67,6 +67,7 @@ export const fetchEvents = (
           }
         );
         dispatch(storeEvents(events));
-      });
+      })
+      .catch((err) => {});
   };
 };

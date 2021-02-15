@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import App from './App';
+import ErrorBoundary from 'src/components/ErrorBoundary';
 import './style/global.scss';
 
 import reducers from './store';
@@ -17,7 +18,9 @@ const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
