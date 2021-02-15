@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 
 import Login from './pages/Login/Login';
 import Calendar from './pages/Calendar/Calendar';
@@ -12,6 +17,7 @@ const App: React.FC = () => {
       <Switch>
         <Route path="/" exact component={Login} />
         <AuthRoute path="/calendar" exact component={Calendar} />
+        <Route path="*" render={() => <Redirect to="/" />} />
       </Switch>
     </Router>
   );
