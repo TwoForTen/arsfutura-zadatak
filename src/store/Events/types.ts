@@ -6,11 +6,13 @@ export enum EventsActionTypes {
   DELETE_EVENT = 'DELETE_EVENT',
   INSERT_EVENT = 'INSERT_EVENT',
   SET_LOADING = 'SET_LOADING',
+  SET_ERROR = 'SET_ERROR',
 }
 
 export interface EventsState {
   events: Event[];
   loading: boolean;
+  error: string;
 }
 
 interface StoreEvents {
@@ -36,9 +38,15 @@ interface SetLoading {
   type: EventsActionTypes.SET_LOADING;
 }
 
+interface SetError {
+  type: EventsActionTypes.SET_ERROR;
+  error: string;
+}
+
 export type EventsActions =
   | StoreEvents
   | ClearEvents
   | DeleteEvent
   | InsertEvent
-  | SetLoading;
+  | SetLoading
+  | SetError;

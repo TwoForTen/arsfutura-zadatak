@@ -3,6 +3,7 @@ import { EventsState, EventsActions, EventsActionTypes } from './types';
 const initialState: EventsState = {
   events: [],
   loading: false,
+  error: '',
 };
 
 const reducer = (state = initialState, action: EventsActions): EventsState => {
@@ -11,6 +12,7 @@ const reducer = (state = initialState, action: EventsActions): EventsState => {
       return {
         events: action.events,
         loading: false,
+        error: '',
       };
     case EventsActionTypes.CLEAR_EVENTS:
       return initialState;
@@ -24,12 +26,17 @@ const reducer = (state = initialState, action: EventsActions): EventsState => {
         ...state,
         events: [...state.events, action.event],
       };
-    case EventsActionTypes.SET_LOADING: {
+    case EventsActionTypes.SET_LOADING:
       return {
         ...state,
         loading: true,
       };
-    }
+    case EventsActionTypes.SET_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
     default:
       return state;
   }

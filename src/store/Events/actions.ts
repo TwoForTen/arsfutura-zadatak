@@ -38,6 +38,13 @@ const setLoading = (): EventsActions => {
   };
 };
 
+const setError = (error: string): EventsActions => {
+  return {
+    type: EventsActionTypes.SET_ERROR,
+    error,
+  };
+};
+
 export const fetchEvents = (
   timeMax: string
 ): ThunkAction<void, GlobalState, unknown, EventsActions> => {
@@ -64,6 +71,8 @@ export const fetchEvents = (
         );
         dispatch(storeEvents(events));
       })
-      .catch((err) => {});
+      .catch(() => {
+        dispatch(setError('Something went wrong'));
+      });
   };
 };

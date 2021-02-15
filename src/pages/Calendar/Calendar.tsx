@@ -1,4 +1,4 @@
-import { useEffect, useState, Fragment } from 'react';
+import { useEffect, useState, Fragment, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UserInfo from 'src/components/UserInfo/UserInfo';
 import { add, format, startOfWeek, endOfWeek } from 'date-fns';
@@ -22,10 +22,12 @@ const Calendar: React.FC = () => {
   const [timeframe, setTimeframe] = useState<number>(7);
   const [modalOpened, setModalOpened] = useState<boolean>(false);
 
-  useEffect(() => {
+  const fetchEventsFunc = useCallback(() => {
     setGroupedEvents({});
     dispatch(fetchEvents(add(new Date(), { days: timeframe }).toISOString()));
   }, [dispatch, timeframe]);
+
+  useEffect(fetchEventsFunc, [fetchEventsFunc]);
 
   useEffect(() => {
     setGroupedEvents({});
@@ -65,6 +67,14 @@ const Calendar: React.FC = () => {
       <span>No events found</span>
     </div>
   );
+  const EVENTS_ERROR: JSX.Element = (
+    <div
+      className={`${styles.events_status_container} ${styles.events_error_container}`}
+    >
+      <span>{events.error}</span>
+      <button onClick={fetchEventsFunc}>Retry</button>
+    </div>
+  );
   const EVENT_LIST: JSX.Element[] = Object.entries(groupedEvents).map(
     ([date, dateEvents]) => {
       return (
@@ -94,6 +104,8 @@ const Calendar: React.FC = () => {
         <section>
           {events.loading
             ? EVENTS_FETCHING
+            : events.error
+            ? EVENTS_ERROR
             : events.events.length < 1 && !events.loading
             ? EVENTS_NOT_FOUND
             : EVENT_LIST}
