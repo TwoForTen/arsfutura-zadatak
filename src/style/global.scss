@@ -3,6 +3,7 @@
 $theme: (
   primary: #4267b2,
   subtext: #999,
+  error: #ee2737,
 );
 
 @function theme($key) {

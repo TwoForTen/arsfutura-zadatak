@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import styles from './addeventmodal.module.scss';
 import axios from 'src/axiosInstance';
 import { useSelector, useDispatch } from 'react-redux';
+import { isBefore, add } from 'date-fns';
 
 import { insertEvent } from 'src/store/Events/actions';
 import { GlobalState } from 'src/store';
@@ -12,23 +13,37 @@ import close from 'src/assets/close.svg';
 
 interface AddEventModalProps {
   setModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  timeframe: number;
 }
 
-const AddEventModal: React.FC<AddEventModalProps> = ({ setModalOpened }) => {
+const AddEventModal: React.FC<AddEventModalProps> = ({
+  setModalOpened,
+  timeframe,
+}) => {
   const dispatch = useDispatch();
 
   const [summary, setSummary] = useState<string>('');
   const [startTime, setStartTime] = useState<any>(undefined);
   const [endTime, setEndTime] = useState<any>(undefined);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
 
   const { access_token } = useSelector(
     (state: GlobalState) => state.user.token
   );
 
   const addEvent = () => {
+    if (!summary || !startTime || !endTime) {
+      setError('All fields must be filled');
+      return;
+    }
+
+    if (isBefore(endTime, startTime)) {
+      setError('End time must be after start time');
+      return;
+    }
+
     setLoading(true);
-    console.log(endTime, startTime);
     axios
       .post(
         '/primary/events',
@@ -48,16 +63,24 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ setModalOpened }) => {
         }
       )
       .then(({ data }) => {
-        dispatch(
-          insertEvent({
-            id: data.id,
-            summary: data.summary,
-            start: data.start.dateTime,
-            end: data.end.dateTime,
-          })
-        );
+        if (
+          isBefore(
+            new Date(data.start.dateTime),
+            new Date(add(new Date(), { days: timeframe }))
+          )
+        ) {
+          dispatch(
+            insertEvent({
+              id: data.id,
+              summary: data.summary,
+              start: data.start.dateTime,
+              end: data.end.dateTime,
+            })
+          );
+        }
         setModalOpened(false);
         setLoading(false);
+        setError('');
       });
   };
 
@@ -91,7 +114,9 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ setModalOpened }) => {
         >
           <div className={styles.form_container}>
             <div className={styles.input_container}>
-              <label htmlFor="summary">Summary</label>
+              <label htmlFor="summary">
+                Summary<small>*</small>
+              </label>
               <input
                 id="summary"
                 type="text"
@@ -103,7 +128,9 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ setModalOpened }) => {
               />
             </div>
             <div className={styles.input_container}>
-              <label htmlFor="startTime">Start Date & Time</label>
+              <label htmlFor="startTime">
+                Start Time<small>*</small>
+              </label>
               <DatePicker
                 id="startTime"
                 selected={startTime}
@@ -114,28 +141,32 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ setModalOpened }) => {
                 timeCaption="Time"
                 dateFormat="MMMM d, yyyy HH:mm"
                 minDate={new Date()}
-                placeholderText="Choose start date"
+                placeholderText="Choose start time"
               />
             </div>
             <div className={styles.input_container}>
-              <label htmlFor="endTime">End Time</label>
+              <label htmlFor="endTime">
+                End Time<small>*</small>
+              </label>
               <DatePicker
                 id="endTime"
                 selected={endTime}
                 onChange={(date) => setEndTime(date)}
+                onFocus={() => setEndTime(startTime)}
                 showTimeSelect
                 timeFormat="HH:mm"
                 timeIntervals={15}
                 timeCaption="Time"
                 dateFormat="MMMM d, yyyy HH:mm"
-                minDate={new Date()}
-                placeholderText="Choose end date"
+                minDate={startTime || new Date()}
+                placeholderText="Choose end time"
               />
             </div>
           </div>
           <button disabled={loading} type="submit">
             Add Event
           </button>
+          {error && <small>Error: {error}</small>}
         </form>
       </div>
     </div>

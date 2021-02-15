@@ -79,6 +79,11 @@
         background-color: theme(subtext);
         cursor: not-allowed;
       }
+
+      small {
+        color: theme(error);
+        margin-top: 0.5rem;
+      }
     }
   }
 }

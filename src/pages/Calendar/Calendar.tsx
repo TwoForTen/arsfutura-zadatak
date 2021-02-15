@@ -82,7 +82,9 @@ const Calendar: React.FC = () => {
 
   return (
     <>
-      {modalOpened && <AddEventModal setModalOpened={setModalOpened} />}
+      {modalOpened && (
+        <AddEventModal timeframe={timeframe} setModalOpened={setModalOpened} />
+      )}
       <main className={styles.root}>
         <UserInfo
           timeframe={timeframe}
