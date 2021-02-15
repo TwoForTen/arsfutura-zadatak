@@ -3,10 +3,11 @@ import { createPortal } from 'react-dom';
 import DatePicker from 'react-datepicker';
 import styles from './addeventmodal.module.scss';
 import axios from 'src/axiosInstance';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { isBefore, add } from 'date-fns';
 
 import { insertEvent } from 'src/store/Events/actions';
+import { GlobalState } from 'src/store';
 
 import close from 'src/assets/close.svg';
 
@@ -27,6 +28,10 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
+  const { access_token } = useSelector(
+    (state: GlobalState) => state.user.token
+  );
+
   const addEvent = () => {
     if (!summary || !startTime || !endTime) {
       setError('All fields must be filled');
@@ -38,18 +43,31 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
       return;
     }
 
+    if (isBefore(startTime, new Date())) {
+      setError('Start time must be in the future');
+      return;
+    }
+
     setLoading(true);
     setError('');
     axios
-      .post('/primary/events', {
-        summary,
-        end: {
-          dateTime: endTime,
+      .post(
+        '/primary/events',
+        {
+          summary,
+          end: {
+            dateTime: endTime,
+          },
+          start: {
+            dateTime: startTime,
+          },
         },
-        start: {
-          dateTime: startTime,
-        },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      )
       .then(({ data }) => {
         if (
           isBefore(

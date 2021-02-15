@@ -48,7 +48,9 @@ const setError = (error: string): EventsActions => {
 export const fetchEvents = (
   timeMax: string
 ): ThunkAction<void, GlobalState, unknown, EventsActions> => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const { access_token } = getState().user.token;
+
     dispatch(clearEvents());
     dispatch(setLoading());
     axios
@@ -56,6 +58,9 @@ export const fetchEvents = (
         params: {
           timeMin: new Date().toISOString(),
           timeMax,
+        },
+        headers: {
+          Authorization: `Bearer ${access_token}`,
         },
       })
       .then(({ data }) => {
