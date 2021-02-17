@@ -41,9 +41,10 @@
     cursor: pointer;
     transition: all 200ms;
     color: theme(primary);
-  }
-  .button_logout:hover {
-    background-color: theme(primary);
-    color: #fff;
+
+    &:hover {
+      background-color: theme(primary);
+      color: #fff;
+    }
   }
 }

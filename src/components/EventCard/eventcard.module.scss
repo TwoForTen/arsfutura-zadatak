@@ -13,6 +13,14 @@
     width: 100%;
   }
 
+  &:hover {
+    border-left-color: theme(primary);
+
+    > .top_section > button {
+      opacity: 1;
+    }
+  }
+
   .top_section {
     display: flex;
     align-items: flex-start;
@@ -35,13 +43,13 @@
       @include respond-to(sm) {
         opacity: 1 !important;
       }
-    }
 
-    button:disabled {
-      cursor: initial;
+      &:disabled {
+        cursor: initial;
 
-      > svg > *:last-child {
-        fill: theme(subtext);
+        > svg > *:last-child {
+          fill: theme(subtext);
+        }
       }
     }
   }
@@ -75,12 +83,4 @@
       }
     }
   }
-}
-
-.root:hover {
-  border-left-color: theme(primary);
-}
-
-.root:hover > .top_section > button {
-  opacity: 1;
 }

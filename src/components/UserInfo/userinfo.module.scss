@@ -69,10 +69,10 @@
         @include respond-to(sm) {
           flex: 1;
         }
-      }
 
-      select:focus {
-        outline: none;
+        &:focus {
+          outline: none;
+        }
       }
     }
 
@@ -88,10 +88,11 @@
       @include respond-to(sm) {
         flex: 1;
       }
-    }
-    button:hover {
-      background-color: transparent;
-      color: theme(primary);
+
+      &:hover {
+        background-color: transparent;
+        color: theme(primary);
+      }
     }
   }
 }

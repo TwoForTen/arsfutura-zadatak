@@ -5,15 +5,15 @@
   position: relative;
   font-weight: 300;
   font-size: 1.4rem;
-}
 
-.title::after {
-  content: '';
-  width: 40px;
-  height: 8px;
-  border-radius: 100px;
-  margin-top: 0.25rem;
-  background-color: theme(primary);
-  position: relative;
-  display: block;
+  &:after {
+    content: '';
+    width: 35px;
+    height: 10px;
+    border-radius: 100px;
+    margin-top: 0.25rem;
+    background-color: theme(primary);
+    position: relative;
+    display: block;
+  }
 }
