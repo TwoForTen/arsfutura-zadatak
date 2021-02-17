@@ -9,8 +9,6 @@ export interface UserProfile {
 
 export interface TokenObj {
   access_token: string;
-  expires_at: number | undefined;
-  expires_in: number | undefined;
   id_token: string;
 }
 

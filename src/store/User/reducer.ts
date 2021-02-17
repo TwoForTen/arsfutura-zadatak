@@ -11,8 +11,6 @@ const initialState: UserState = {
   },
   token: {
     access_token: localStorage.getItem('@access_token') || '',
-    expires_at: undefined,
-    expires_in: undefined,
     id_token: localStorage.getItem('@id_token') || '',
   },
 };
@@ -24,8 +22,6 @@ const reducer = (state = initialState, action: UserActions): UserState => {
         profile: action.googleResponse.profileObj,
         token: {
           access_token: action.googleResponse.tokenObj.access_token,
-          expires_at: action.googleResponse.tokenObj.expires_at,
-          expires_in: action.googleResponse.tokenObj.expires_in,
           id_token: action.googleResponse.tokenObj.id_token,
         },
       };
