@@ -65,6 +65,7 @@
         border-width: 2px;
         border-radius: 100px;
         margin-right: 0.5rem;
+        background: transparent;
 
         @include respond-to(sm) {
           flex: 1;
