@@ -152,6 +152,11 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
                 dateFormat="MMMM d, yyyy HH:mm"
                 minDate={new Date()}
                 placeholderText="Choose start time"
+                popperModifiers={{
+                  preventOverflow: {
+                    enabled: true,
+                  },
+                }}
               />
             </div>
             <div className={styles.input_container}>

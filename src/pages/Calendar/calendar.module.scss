@@ -5,6 +5,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     grid-gap: 1rem;
+
+    @include respond-to(sm) {
+      grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
   }
 
   .events_status_container {
